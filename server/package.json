@@ -24,6 +24,7 @@
     "redis": "^4.6.14",
     "sequelize": "^6.37.3",
     "socket.io": "^4.7.5",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/express-session": "^1.18.0",
     "@types/node": "^20.12.12",
     "@types/pg": "^8.11.6",
+    "@types/uuid": "^9.0.8",
     "typescript": "^5.4.5"
   }
 }

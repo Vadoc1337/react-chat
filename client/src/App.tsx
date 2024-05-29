@@ -1,26 +1,34 @@
-import {io} from 'socket.io-client'
 import ToggleColorMode from "./components/ToggleColorMode";
 import NavigationRoutes from "./components/NavigationRoutes";
 import {useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router";
-import {selectUser} from "./redux/slices/userSlice";
-
-const socketIO = io("http://localhost:4000");
+import {selectUser, setUser} from "./redux/slices/userSlice";
+import axios from "axios";
+import {useAppDispatch} from "./redux/store";
 
 
 function App() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
+    const dispatch = useAppDispatch()
+
 
     useEffect(() => {
-        if (!user.loggedIn) {
-            navigate('/');
-        }
-        if (user.loggedIn) {
-            navigate('/home');
-        }
-    }, [navigate, user.loggedIn]);
+        axios.get(`http://localhost:4000/login`, { withCredentials: true })
+            .then(response => {
+                if (!response || !response.data || response.status >= 400) {
+                    dispatch(setUser({ loggedIn: false }));
+                    return;
+                }
+                dispatch(setUser({ loggedIn: response.data.loggedIn }));
+                navigate('/chat');
+            })
+            .catch(error => {
+                console.log(error);
+                setUser({ loggedIn: false });
+            });
+    }, [user.loggedIn]);
 
     return (
         <>

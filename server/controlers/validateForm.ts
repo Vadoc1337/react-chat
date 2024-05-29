@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import {Request, Response} from 'express'
+import {NextFunction, Request, Response} from 'express'
 
 const formSchema = Yup.object({
     username: Yup.string()
@@ -13,7 +13,14 @@ const formSchema = Yup.object({
         .max(28, "Пароль слишком длинный")
         .matches(/^\S*$/, "Пароль не должен содержать пробелы"),
 });
-const validateForm = (req:Request,res:Response) => {
+
+export const colleagueSchema = Yup.object({
+    colleagueName: Yup.string()
+        .required("Необходимо указать имя пользователя")
+        .min(2, "Неверное имя пользователя")
+        .max(28, "Неверное имя пользователя"),
+});
+const validateForm = (req:Request,res:Response, next:NextFunction) => {
 
     const formData = req.body
     formSchema
@@ -21,6 +28,9 @@ const validateForm = (req:Request,res:Response) => {
         .then((valid:any) => {
             if (valid) {
                 console.log("Валидация прошла успешно")
+                next()
+            } else {
+                res.status(422).send("Валидация не прошла");
             }
         })
         .catch((err:any) => {

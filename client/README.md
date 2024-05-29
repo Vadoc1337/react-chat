@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# РЕАКТ ЧАТ
+_________
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 О проекте
 
-Currently, two official plugins are available:
+Цель этого проекта - создать чат без регистрации с использованием технологий Socket.IO, React.js, Redux, PostgreSQL, Sequelize, Node.js, Express.js, Axios и TypeScript.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 💻 Стэк
 
-## Expanding the ESLint configuration
+- TypeScript
+- React
+- Redux Toolkit
+- Node JS
+- Express.js
+- Socket.io
+- POSTGRE SQL
+- Formik 
+- Chakra UI
+- Helmet
+- Bccrypt
+- Lodash.Debounce
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<p>и многое другое</p>
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Первоначальный запуск
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Установить PostgreSQL и Redis
+
+2. После загрузки проекта необхожимо создать БД в PostgreSQl, вставить запросы из папки ```react-chat/server/database.sql```
+
+```bash
+  npm install    // загружаем node_modules для server/client части 
+  открываем несоколько терминалов
+  npm run dev    // запуск FrontEnd части 
+  npm start      // запуск BackEnd части
+  psql -d имя БД // позволяет делать запросы на PostgreSQL
+  redis-server   // инициализация сервера Redis 
+  redis-cli      // для отправки запросов в БД Redis
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Чтобы добавить пользователя в БД - нужно убрать // с закомиченного кода в папке ```react-chat/server/controlers/authController.ts```, а тот код что был - закоммитить вплоть до объявления функции. После добавления нужных пользователей в БД 
+PostgreSQL 
+вернуть 
+все назад.
+
+## ‼️ Что нужно сделать, чтобы было по-красоте
+
+- [ ] Пофиксить сокеты отправки сообщений и онлайн статуса коллег, подправить стили и улучшить дизайн
+- [ ] Сделать запросы на сохранение переписки пользователя в БД PostgreSQL через Sequelize
+- [ ] Типизировать и упорядочить некоторые участки кода
+- [ ] Выгрузить проект вместе с БД на хостинг
+
+## ⁉️ Что можно добавить
+- [ ] Возможность для регистрации новых пользователей, либо отдельный интерфейс админки в котором можно вручную добавлять пользователей из компании.
+- [ ] Добавить возможность отправки и скачивания файлов
+- [ ] Добавить JWT токены для авторизации 

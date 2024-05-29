@@ -1,10 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit';
 import user from './slices/userSlice';
+import colleague from './slices/colleagueListSlice';
+import message from './slices/messagesSlice';
 import {useDispatch} from "react-redux";
 
 export const store = configureStore({
     reducer: {
         user,
+        colleague,
+        message
     },
 });
 

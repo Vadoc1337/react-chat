@@ -7,8 +7,9 @@ const ToggleColorMode = () => {
         <Button
             onClick={() => toggleColorMode()}
             pos="absolute"
+            display="flex"
             top="0"
-            right="0"
+            right="1"
             m="1rem"
             size="md"
         >

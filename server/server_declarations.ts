@@ -21,21 +21,10 @@ interface SocketData {
     age: number;
 }
 
-// ? Auth interfaces
-//TODO delete
-interface CustomSession extends Session {
-    user?: {
-        username: string;
-        id: number;
-    };
-    username?: string;
-    id?: number;
-}
 
 export type {
     ServerToClientEvents,
     ClientToServerEvents,
     InterServerEvents,
     SocketData,
-    CustomSession,
 }

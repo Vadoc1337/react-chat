@@ -3,17 +3,17 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import {Form, Formik} from "formik";
-import TextField from "./TextField";
+import TextField from "../TextField";
 import axios from "axios";
 import {useNavigate} from "react-router";
-import {useDispatch} from "react-redux";
 
 import {setUser} from "../../redux/slices/userSlice";
 import {useState} from "react";
+import {useAppDispatch} from "../../redux/store";
 
 const Login = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch()
     const [error, setError] = useState(null);
 
     return (
@@ -46,7 +46,7 @@ const Login = () => {
                                 if (res.data.status) {
                                     setError(res.data.status);
                                 } else if (res.data.loggedIn) {
-                                    navigate("/home");
+                                    navigate("/chat");
                                 }
                             }
                         })
