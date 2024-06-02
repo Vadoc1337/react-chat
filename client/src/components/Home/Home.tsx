@@ -28,7 +28,9 @@ const Home = () => {
                 <Sidebar/>
             </GridItem>
             <GridItem colSpan={7}
-                      h="100vh" pt="60px">
+                      h="100vh"
+                      pt="64px"
+            >
                 <Chat userid={colleagueList[colleagueIndex]?.userid}/>
             </GridItem>
         </Grid>

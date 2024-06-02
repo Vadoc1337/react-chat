@@ -1,0 +1,32 @@
+.chakra-tabs__tab-panel {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+textarea {
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+    border: none !important;
+    overflow: auto !important;
+    outline: none !important;
+
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+
+    resize: none !important;
+}
+
+#chat__textarea{
+    overflow-y:scroll !important;
+    -webkit-padding-start: 0 !important;
+}
+
+#chat__textarea::-webkit-scrollbar {
+    display: none;
+}
+
+#chat__textarea {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

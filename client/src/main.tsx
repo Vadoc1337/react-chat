@@ -5,7 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import {store} from "./redux/store";
 import {Provider} from "react-redux";
 
-import './index.css'
+import './index.scss'
 import App from './App'
 import theme from "./theme";
 

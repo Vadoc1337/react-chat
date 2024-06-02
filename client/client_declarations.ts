@@ -4,8 +4,12 @@ interface ITextFieldProps {
     [x: string]: any;
 }
 
-interface ChatProps {
+interface IChatProps {
     userid: string | undefined;
+}
+
+interface IFormValues {
+    message: string;
 }
 
 // ? REDUX TYPES
@@ -33,5 +37,6 @@ export type {
     IUserState,
     IColleaguesSlice,
     IMessagesSlice,
-    ChatProps
+    IChatProps,
+    IFormValues,
 }

@@ -8,6 +8,8 @@ const ToggleColorMode = () => {
             onClick={() => toggleColorMode()}
             pos="absolute"
             display="flex"
+            borderRadius="50%"
+            w="5"
             top="0"
             right="1"
             m="1rem"

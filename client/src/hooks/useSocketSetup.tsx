@@ -33,7 +33,7 @@ const useSocketSetup = () => {
         // });
 
         socket.on("connected", (status: any, username: any) => {
-            console.log("test connected"); // TODO не работает определение онлайн статуса друзей + сокеты отправки сообщений между пользователями
+            console.log("test connected"); // TODO не работает определение онлайн статуса друзей + сокеты отправки сообщений между пользователями Unchecked runtime.lastError: The message port closed before a response was received.
             let updatedColleagues: any
             dispatch(setColleagueList([...updatedColleagues].map((colleague) => {
                 if (colleague.username === username) {

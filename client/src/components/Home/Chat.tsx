@@ -2,35 +2,35 @@ import {TabPanel, TabPanels, Text, VStack} from "@chakra-ui/react";
 import {useSelector} from "react-redux";
 import {selectColleague} from "../../redux/slices/colleagueListSlice";
 import {selectMessage} from "../../redux/slices/messagesSlice";
-import {ChatProps} from "../../../client_declarations";
+import {IChatProps} from "../../../client_declarations";
 import ChatBox from "./ChatBox";
 import {FC, useEffect} from "react";
 
-const Chat:FC<ChatProps> = ({userid}) => {
+const Chat: FC<IChatProps> = ({userid}) => {
     const messageArr = useSelector(selectMessage);
     const colleagueList = useSelector(selectColleague);
     const scrollFunc = () => {
         const bottomDiv = document.querySelector(`#bottom`);
-        if(bottomDiv){
-            bottomDiv?.scrollIntoView({behavior: "smooth"});
+        if (bottomDiv) {
+            bottomDiv?.scrollIntoView();
         }
     };
 
     useEffect(() => {
         scrollFunc()
-    },[messageArr])
+    }, [messageArr])
     return (
         colleagueList.length > 0 ? ( // подправил тут был просто colleague
             <VStack h="100%" justify="end">
-                <TabPanels overflowY="scroll">
+                <TabPanels overflowY="auto" >
                     {colleagueList.map((colleague) => (
                         <VStack
                             flexDir="column-reverse"
                             as={TabPanel}
                             key={`chat:${colleague.username}`}
                             w="100%"
-                            mt='2.5rem'>
-                            <div id="bottom"/>
+                            mt="6px">
+                            <div id="bottom" style={{visibility: "hidden"}}/>
                             {messageArr.filter
 
                             (message => message.to === colleague.userid || message.from === colleague.userid)
@@ -38,8 +38,8 @@ const Chat:FC<ChatProps> = ({userid}) => {
                                     <Text
                                         m={
                                             msg.to === colleague.userid
-                                                ? "1rem 0 0 auto !important"
-                                                : "1rem auto 0 0 !important"
+                                                ? "0 0 0 auto !important"
+                                                : "0 auto 0 0 !important"
                                         }
                                         maxW={["95%", "45%", "45%"]}
                                         minW="20px"
@@ -49,6 +49,9 @@ const Chat:FC<ChatProps> = ({userid}) => {
                                         color="gray.800"
                                         borderRadius="10px"
                                         p="0.5rem 1rem"
+                                        wordBreak="break-word"
+                                        whiteSpace="pre-wrap"
+                                        visibility="visible"
                                     >
                                         {(msg.text)}
                                     </Text>
@@ -56,7 +59,7 @@ const Chat:FC<ChatProps> = ({userid}) => {
                         </VStack>
                     ))}
                 </TabPanels>
-                <ChatBox userid={userid} />
+                <ChatBox userid={userid}/>
             </VStack>) : (
             <VStack h="100%" justify="center" pt="5rem" textAlign="center"
                     fontSize="lg">
