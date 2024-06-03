@@ -36,7 +36,8 @@ io.on('connect', (socket: any) => {
     })
 
     socket.on
-    ("dm", (message:any) => {
+    ("direct_message", (message:any) => {
+        console.log(message, "Приемник сокета с фронта")
             direct_message(socket, message)
         }
     )

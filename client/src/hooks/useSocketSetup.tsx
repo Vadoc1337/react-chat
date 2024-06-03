@@ -2,9 +2,10 @@ import {useEffect} from "react";
 import socket from "../socket";
 import {setUser} from "../redux/slices/userSlice";
 import {selectColleague, setColleagueList} from "../redux/slices/colleagueListSlice";
-import {setMessages} from "../redux/slices/messagesSlice";
+import {addMessage, setInitialMessages} from "../redux/slices/messagesSlice";
 import {useAppDispatch} from "../redux/store";
 import {useSelector} from "react-redux";
+import {IColleaguesSlice, IMessage} from "../../client_declarations";
 
 const useSocketSetup = () => {
     const dispatch = useAppDispatch()
@@ -12,35 +13,33 @@ const useSocketSetup = () => {
     useEffect(() => {
         socket.connect();
 
-        socket.on("colleagues", (colleagueList: any) => {
-            // console.log(colleagueList)
+        socket.on("colleagues", (colleagueList: IColleaguesSlice[]) => {
             dispatch(setColleagueList(colleagueList))
         })
 
-        socket.on("messages", messages => {
-            console.log('test2')
-            dispatch(setMessages(messages))
+        socket.on("messages", (messages:IMessage[]) => {
+            console.log('test2', "сообщения загружены")
+            dispatch(setInitialMessages(messages));
         })
 
-        socket.on("direct_message", message => {
-            console.log("test3")
-            dispatch(setMessages(message))
+        socket.on("direct_message", (message:IMessage) => {
+            console.log("test3, сообщение отправлено")
+            dispatch(addMessage(message))
         })
 
         // socket.on("colleagues", (colleagueList) => {
         //     console.log([...colleagueList].map((colleague:any) => colleague.connected))
         //     dispatch(setColleagueList(colleagueList))
-        // });
-
-        socket.on("connected", (status: any, username: any) => {
-            console.log("test connected"); // TODO не работает определение онлайн статуса друзей + сокеты отправки сообщений между пользователями Unchecked runtime.lastError: The message port closed before a response was received.
-            let updatedColleagues: any
-            dispatch(setColleagueList([...updatedColleagues].map((colleague) => {
+        // }); удалить?!
+        socket.on("connected", (status: boolean, username: string) => {
+            console.log("connected TRUE")
+            const updatedColleagues = colleagues.map((colleague) => {
                 if (colleague.username === username) {
-                    colleague.connected = status;
+                    return { ...colleague, connected: status };
                 }
                 return colleague;
-            })))
+            });
+            dispatch(setColleagueList(updatedColleagues));
         });
 
         socket.on("connect_error", () => {
@@ -54,6 +53,6 @@ const useSocketSetup = () => {
             socket.off("messages")
             socket.off("direct_message")
         }
-    }, [dispatch, socket]);
+    }, [dispatch, socket,addMessage,setColleagueList,setUser]);
 }
 export default useSocketSetup

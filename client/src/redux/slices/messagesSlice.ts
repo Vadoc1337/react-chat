@@ -1,23 +1,28 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from "../store";
-import {IMessagesSlice} from "../../../client_declarations";
-
+import {IMessage} from "../../../client_declarations"; // Renamed for clarity
 
 export const messagesSlice = createSlice({
     name: 'message',
     initialState: {
-        messages: [] as IMessagesSlice[]
+        messages: [] as IMessage[]
     },
     reducers: {
-        setMessages: (state, action: PayloadAction<IMessagesSlice>) => {
-            state.messages.unshift(action.payload);
+        addMessage: (state, action: PayloadAction<IMessage>) => {
+            state.messages.push(action.payload);
         },
+        setInitialMessages: (state, action: PayloadAction<IMessage[]>) => {
+            state.messages = action.payload;
+        },
+        clearMessages: (state) => {
+            state.messages = [];
+        }
     },
 });
 
-export const selectMessage = (state: RootState): IMessagesSlice[] =>
+export const selectMessage = (state: RootState): IMessage[] =>
     state.message.messages;
 
-export const {setMessages} = messagesSlice.actions;
+export const {addMessage, setInitialMessages, clearMessages} = messagesSlice.actions;
 
 export default messagesSlice.reducer;

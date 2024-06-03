@@ -17,16 +17,16 @@ interface IFormValues {
 interface IUserState {
     sessionId?: string;
     loggedIn: boolean | null;
-    // token: string | null;
+    // token: string | null; добавить в будущем
 }
 
 interface IColleaguesSlice {
     username?: string,
     userid?: string,
-    connected?: string
+    connected?: boolean
 }
 
-interface IMessagesSlice {
+interface IMessage {
     to: string | undefined;
     from?: string | null | undefined;
     text?: string
@@ -36,7 +36,7 @@ export type {
     ITextFieldProps,
     IUserState,
     IColleaguesSlice,
-    IMessagesSlice,
+    IMessage,
     IChatProps,
     IFormValues,
 }

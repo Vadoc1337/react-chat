@@ -8,13 +8,13 @@ import {selectColleague} from "../../redux/slices/colleagueListSlice";
 
 
 const Home = () => {
-    useSocketSetup()
     const [colleagueIndex,setColleagueIndex] = useState(0);
     const handleTabChange: FormEventHandler<HTMLDivElement> = (event) => {
         const index = parseInt(event.currentTarget.id);
         setColleagueIndex(index);
     }
     const colleagueList = useSelector(selectColleague);
+    useSocketSetup()
 
     return (
 
@@ -36,5 +36,4 @@ const Home = () => {
         </Grid>
     );
 };
-// TODO подправить стили
 export default Home;

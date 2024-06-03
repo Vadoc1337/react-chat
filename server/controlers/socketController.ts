@@ -2,7 +2,6 @@ import {redisClient} from "../redis";
 
 export const authorizeUser = (socket: any, next: any) => {
     if (!socket.request.session || !socket.request.session.user) {
-        console.log("Неавторизованный пользователь")
         next(new Error("Неавторизованный пользователь"));
     } else {
         socket.user = {...socket.request.session.user}
@@ -37,7 +36,7 @@ export const initializeUser = async (socket: any) => {
     );
     const messages = messageQuery.map(messageString => {
         const parsedString = messageString.split(".");
-        return {to: parsedString[0], from: parsedString[1], content: parsedString[2]};
+        return {to: parsedString[0], from: parsedString[1], text: parsedString[2]};
     });
     if (messages && messages.length > 0) {
         socket.emit("messages", messages);
@@ -81,7 +80,7 @@ export const onDisconnect = async (socket: any) => {
         .then(colleagues => colleagues.map((colleague: { userid: string }) =>
             colleague.userid));
     socket.to(colleagueRooms).emit("connected", "false", socket.user.username);
-    console.log(colleagueRooms, "сделал действие") // TODO логика работы отображения коллег онлайн, фиксить...
+    console.log(colleagueRooms, "добавленный калека") // TODO логика работы отображения коллег онлайн, фиксить + фиксить общение с разными коллегами в чате
 };
 
 export const parseColleagueList = async (colleagueList: string[]): Promise<any> => {

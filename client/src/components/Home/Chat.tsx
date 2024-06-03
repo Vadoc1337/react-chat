@@ -22,7 +22,7 @@ const Chat: FC<IChatProps> = ({userid}) => {
     return (
         colleagueList.length > 0 ? ( // подправил тут был просто colleague
             <VStack h="100%" justify="end">
-                <TabPanels overflowY="auto" >
+                <TabPanels overflowY="auto">
                     {colleagueList.map((colleague) => (
                         <VStack
                             flexDir="column-reverse"
@@ -31,8 +31,7 @@ const Chat: FC<IChatProps> = ({userid}) => {
                             w="100%"
                             mt="6px">
                             <div id="bottom" style={{visibility: "hidden"}}/>
-                            {messageArr.filter
-
+                            {messageArr.length === 0 ? <Text color="gray.500" alignSelf="center"> Нет сообщений </Text> : messageArr.filter
                             (message => message.to === colleague.userid || message.from === colleague.userid)
                                 .map((msg, index) => (
                                     <Text
@@ -53,7 +52,7 @@ const Chat: FC<IChatProps> = ({userid}) => {
                                         whiteSpace="pre-wrap"
                                         visibility="visible"
                                     >
-                                        {(msg.text)}
+                                        {(msg.text ? msg.text : "Пустое сообщение")}
                                     </Text>
                                 ))}
                         </VStack>
